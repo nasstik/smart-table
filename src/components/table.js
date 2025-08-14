@@ -11,15 +11,7 @@ export function initTable(settings, onAction) {
     const {tableTemplate, rowTemplate, before, after} = settings;
     const root = cloneTemplate(tableTemplate);
 
-<<<<<<< HEAD
-    // @todo: #1.2 —  вывести дополнительные шаблоны до и после таблицы
 
-    // @todo: #1.3 —  обработать события и вызвать onAction()
-
-    const render = (data) => {
-        // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
-        const nextRows = [];
-=======
     after.forEach(subName => {                            // перебираем нужный массив идентификаторов
         root[subName] = cloneTemplate(subName);            // клонируем и получаем объект, сохраняем в таблице
         root.container.append(root[subName].container);    // добавляем к таблице после (append) или до (prepend)
@@ -56,7 +48,7 @@ export function initTable(settings, onAction) {
         })
         // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
        
->>>>>>> 42ab57a (Доделала)
+
         root.elements.rows.replaceChildren(...nextRows);
     }
 
