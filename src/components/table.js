@@ -11,6 +11,7 @@ export function initTable(settings, onAction) {
     const {tableTemplate, rowTemplate, before, after} = settings;
     const root = cloneTemplate(tableTemplate);
 
+<<<<<<< HEAD
     // @todo: #1.2 —  вывести дополнительные шаблоны до и после таблицы
 
     // @todo: #1.3 —  обработать события и вызвать onAction()
@@ -18,6 +19,44 @@ export function initTable(settings, onAction) {
     const render = (data) => {
         // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
         const nextRows = [];
+=======
+    after.forEach(subName => {                            // перебираем нужный массив идентификаторов
+        root[subName] = cloneTemplate(subName);            // клонируем и получаем объект, сохраняем в таблице
+        root.container.append(root[subName].container);    // добавляем к таблице после (append) или до (prepend)
+    });
+
+    before.reverse().forEach(subName => {                           
+        root[subName] = cloneTemplate(subName);           
+        root.container.prepend(root[subName].container);    
+    });
+
+    // @todo: #1.2 —  вывести дополнительные шаблоны до и после таблицы
+    root.container.addEventListener('change', () => {
+        onAction();  
+      });
+      root.container.addEventListener('reset', () => {
+        setTimeout(onAction);
+      });
+      root.container.addEventListener('submit', (e) => {
+        e.preventDefault();
+        onAction(e.submitter);
+      });
+    // @todo: #1.3 —  обработать события и вызвать onAction()
+
+    const render = (data) => {
+        
+        const nextRows = data.map(item => { 
+            const row = cloneTemplate(rowTemplate);
+            Object.keys(item).forEach(key => { 
+                if (key in row.elements) {
+                    row.elements[key].textContent = item[key];
+                }
+            })
+            return row.container;
+        })
+        // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
+       
+>>>>>>> 42ab57a (Доделала)
         root.elements.rows.replaceChildren(...nextRows);
     }
 
