@@ -37,13 +37,17 @@ export function initTable(settings, onAction) {
   const render = (data) => {
     const nextRows = data.map((item) => {
       const row = cloneTemplate(rowTemplate);
+
       Object.keys(item).forEach((key) => {
-        if (["INPUT", "SELECT"].includes(row.elements[key].tagName)) {
-          row.elements[key].value = item[key];
-        } else {
-          row.elements[key].textContent = item[key];
+        if (row.elements[key]) {
+          if (["INPUT", "SELECT"].includes(row.elements[key].tagName)) {
+            row.elements[key].value = item[key];
+          } else {
+            row.elements[key].textContent = item[key];
+          }
         }
       });
+
       return row.container;
     });
 
