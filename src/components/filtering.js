@@ -18,7 +18,7 @@ export function initFiltering(elements) {
       if (elements[key]) {
         if (
           ["INPUT", "SELECT"].includes(elements[key].tagName) &&
-          elements[key].value
+          elements[key].value 
         ) {
           filter[`filter[${elements[key].name}]`] = elements[key].value;
         }

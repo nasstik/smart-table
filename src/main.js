@@ -42,9 +42,11 @@ async function render(action) {
   let query = {};
 
   query = applySorting(query, state, action);
-  query = applySearching(query, state, action);
+  
   query = applyFiltering(query, state, action);
+  query = applySearching(query, state, action);
   query = applyPagination(query, state, action);
+  
 
   const { total, items } = await api.getRecords(query);
 
@@ -75,6 +77,9 @@ const { applyPagination, updatePagination } = initPagination(
   }
 );
 const applySearching = initSearching(sampleTable.search.elements.searchField);
+// sampleTable.search.elements.searchField.addEventListener("input", () => {
+//     render();
+//   });
 const applySorting = initSorting([
   // Нам нужно передать сюда массив элементов, которые вызывают сортировку, чтобы изменять их визуальное представление
   sampleTable.header.elements.sortByDate,
